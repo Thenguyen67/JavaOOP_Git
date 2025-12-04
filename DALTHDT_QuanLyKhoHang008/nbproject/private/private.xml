@@ -3,9 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/E:/Java-OOP/DALTHDT_QuanLyKhoHang008/src/Controller/PasswordController.java</file>
             <file>file:/E:/Java-OOP/DALTHDT_QuanLyKhoHang008/src/Model/PasswordModel.java</file>
             <file>file:/E:/Java-OOP/DALTHDT_QuanLyKhoHang008/src/View/PasswordView.java</file>
+=======
+            <file>file:/E:/Java-OOP/DALTHDT_QuanLyKhoHang008/src/Model/SanPhamModel.java</file>
+            <file>file:/E:/Java-OOP/DALTHDT_QuanLyKhoHang008/src/View/SanPhamView.java</file>
+            <file>file:/E:/Java-OOP/DALTHDT_QuanLyKhoHang008/src/Controller/SanPhamController.java</file>
+            <file>file:/E:/Java-OOP/DALTHDT_QuanLyKhoHang008/src/View/PasswordView.java</file>
+            <file>file:/E:/Java-OOP/DALTHDT_QuanLyKhoHang008/src/Model/PasswordModel.java</file>
+            <file>file:/E:/Java-OOP/DALTHDT_QuanLyKhoHang008/src/Controller/PasswordController.java</file>
+            <file>file:/E:/Java-OOP/DALTHDT_QuanLyKhoHang008/test/Test001.java</file>
+>>>>>>> b6b8597 (4/12/2025)
         </group>
     </open-files>
 </project-private>
