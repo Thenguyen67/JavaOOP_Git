@@ -1,16 +1,16 @@
 package Controller;
  
 import DBConnection.JDBCUtil;
-import Model.RegisterModel;
+import Model.NhaCungCapModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 
 public class NhaCungCapController {
-    public boolean RegisterNhaCungCap(RegisterModel rm) { // đang sửa đoạn này
+    public boolean RegisterNhaCungCap(NhaCungCapModel NCCModel) {
 
-        String sql = "INSERT INTO nhacungcap(IDNhacungcap, tenNhacungcap, SDTkhachhang, diachinhacungcap, SDTnhacungcap, emailnhacungcap, emailnhacungcap) VALUES (?, ?, ?, ?, ? , ?, ?)";
+        String sql = "INSERT INTO nhacungcap(ID_NCC, Ten_NCC, SDT_NCC, Email_NCC, DiaChi_NCC) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection cnt = JDBCUtil.getConnection();
              PreparedStatement ps = cnt != null ? cnt.prepareStatement(sql) : null) {
@@ -19,14 +19,11 @@ public class NhaCungCapController {
                 return false; 
             }
         
-            ps.setString(1, rm.getID());
-            ps.setString(2, rm.getPassword());
-            ps.setString(3, rm.getHoten());
-            ps.setString(4, rm.getGioitinh());
-            ps.setString(5, rm.getSDT());
-            ps.setString(6, rm.getEmail());
-            ps.setString(7, rm.getDiachi());
-            ps.setString(8, rm.getIDkho());
+            ps.setString(1, NCCModel.getID_NCC());
+            ps.setString(2, NCCModel.getTen_NCC());
+            ps.setString(3, NCCModel.getSDT_NCC());
+            ps.setString(4, NCCModel.getEmail_NCC());
+            ps.setString(5, NCCModel.getDiaChi_NCC());
 
             int rs = ps.executeUpdate();
             return rs > 0;
@@ -35,6 +32,5 @@ public class NhaCungCapController {
             ex.printStackTrace(); 
             return false;
         }
-
     }
 }

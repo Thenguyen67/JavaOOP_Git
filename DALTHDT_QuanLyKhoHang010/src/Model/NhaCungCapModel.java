@@ -1,40 +1,51 @@
 package Model;
 
 public class NhaCungCapModel {
-    private String idNhaCungCap;
-    private String tenNhaCungCap;
-    private String sdtNhaCungCap;
-    private String diaChiNhaCungCap;
+    private String ID_NCC;
+    private String Ten_NCC;
+    private String SDT_NCC;
+    private String Email_NCC;
+    private String DiaChi_NCC;
 
-    public String getIdNhaCungCap() {
-        return idNhaCungCap;
+    public String getID_NCC() {
+        return ID_NCC;
     }
 
-    public String getTenNhaCungCap() {
-        return tenNhaCungCap;
+    public String getTen_NCC() {
+        return Ten_NCC;
     }
 
-    public String getSdtNhaCungCap() {
-        return sdtNhaCungCap;
+    public String getSDT_NCC() {
+        return SDT_NCC;
     }
 
-    public String getDiaChiNhaCungCap() {
-        return diaChiNhaCungCap;
+    public String getEmail_NCC() {
+        return Email_NCC;
     }
 
-    public void setIdNhaCungCap(String idNhaCungCap) {
-        this.idNhaCungCap = idNhaCungCap;
+    public String getDiaChi_NCC() {
+        return DiaChi_NCC;
     }
 
-    public void setTenNhaCungCap(String tenNhaCungCap) {
-        this.tenNhaCungCap = tenNhaCungCap;
+    public void setID_NCC(String ID_NCC) {
+        this.ID_NCC = ID_NCC;
     }
 
-    public void setSdtNhaCungCap(String sdtNhaCungCap) {
-        this.sdtNhaCungCap = sdtNhaCungCap;
+    public void setTen_NCC(String Ten_NCC) {
+        this.Ten_NCC = Ten_NCC;
     }
 
-    public void setDiaChiNhaCungCap(String diaChiNhaCungCap) {
-        this.diaChiNhaCungCap = diaChiNhaCungCap;
+    public void setSDT_NCC(String SDT_NCC) {
+        this.SDT_NCC = SDT_NCC;
     }
+
+    public void setEmail_NCC(String Email_NCC) {
+        this.Email_NCC = Email_NCC;
+    }
+
+    public void setDiaChi_NCC(String DiaChi_NCC) {
+        this.DiaChi_NCC = DiaChi_NCC;
+    }
+
+    
 }
