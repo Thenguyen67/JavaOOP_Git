@@ -1,28 +1,40 @@
 package Controller;
 
-import java.sql.PreparedStatement;
 import java.sql.Connection;
+import DBConnection.JDBCUtil;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.ResultSet;
 
 public class LoginController {
-    public Connection getJBDCConnection(){
+    
+    public Connection getConnectionForLogin() {
+        return JDBCUtil.getConnection();
+    }
+    
+    public boolean login(String ID, String password){
+        Connection cnt = JDBCUtil.getConnection();
         
-        String url = "jdbc:mysql://localhost:3306/qlkh";
-        String user = "root";
-        String password = "116120";
+        String sql = "SELECT * FROM taikhoannhanvien WHERE ID = ? AND password = ?";
         
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection(url, user, password);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            PreparedStatement ps = cnt.prepareStatement(sql);
+            ps.setString(1, ID);
+            ps.setString(2, password);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                return true;
+            } else{
+                return false;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        
+        return false;
     }
 }

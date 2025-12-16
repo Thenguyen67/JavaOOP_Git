@@ -1,16 +1,16 @@
 package Controller;
-
-import Model.RegisterModel;
-import java.sql.PreparedStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
+ 
 import DBConnection.JDBCUtil;
+import Model.RegisterModel;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-public class RegisterController {
-    
-    public boolean Register(RegisterModel rm) {
 
-        String sql = "INSERT INTO taikhoannhanvien(ID, password, hoten, gioitinh, SDT, email, diachi, IDkho) VALUES (?, ?, ?, ?, ? , ?, ?, ?)";
+public class NhaCungCapController {
+    public boolean RegisterNhaCungCap(RegisterModel rm) { // đang sửa đoạn này
+
+        String sql = "INSERT INTO nhacungcap(IDNhacungcap, tenNhacungcap, SDTkhachhang, diachinhacungcap, SDTnhacungcap, emailnhacungcap, emailnhacungcap) VALUES (?, ?, ?, ?, ? , ?, ?)";
 
         try (Connection cnt = JDBCUtil.getConnection();
              PreparedStatement ps = cnt != null ? cnt.prepareStatement(sql) : null) {
@@ -37,5 +37,4 @@ public class RegisterController {
         }
 
     }
-    
 }

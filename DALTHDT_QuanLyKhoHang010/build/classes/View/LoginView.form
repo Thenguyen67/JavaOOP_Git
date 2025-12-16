@@ -38,11 +38,11 @@
                           <Component id="jTextField2" min="-2" pref="317" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jButton1" min="-2" pref="103" max="-2" attributes="0"/>
+                                  <Component id="jbtDangKi" min="-2" pref="103" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jbtDangNhap" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jButton2" min="-2" pref="62" max="-2" attributes="0"/>
+                                  <Component id="jbtHuy" min="-2" pref="62" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jTextField1" min="-2" pref="317" max="-2" attributes="0"/>
                           </Group>
@@ -74,9 +74,9 @@
               <Component id="jTextField1" min="-2" pref="34" max="-2" attributes="0"/>
               <EmptySpace pref="43" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jButton3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="jbtDangKi" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="jbtDangNhap" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="jbtHuy" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
           </Group>
@@ -122,7 +122,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="jbtDangKi">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
@@ -130,10 +130,10 @@
         <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng k&#xed;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtDangKiActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="jbtHuy">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
@@ -141,16 +141,19 @@
         <Property name="text" type="java.lang.String" value="H&#x1ee7;y"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtHuyActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="jbtDangNhap">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng nh&#x1ead;p"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtDangNhapActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

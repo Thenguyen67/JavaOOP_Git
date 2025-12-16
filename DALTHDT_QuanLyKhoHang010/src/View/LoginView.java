@@ -1,5 +1,8 @@
 package View;
 
+import Controller.LoginController;
+import javax.swing.JOptionPane;
+
 public class LoginView extends javax.swing.JFrame {
 
     public LoginView() {
@@ -17,9 +20,9 @@ public class LoginView extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jbtDangKi = new javax.swing.JButton();
+        jbtHuy = new javax.swing.JButton();
+        jbtDangNhap = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -36,24 +39,29 @@ public class LoginView extends javax.swing.JFrame {
 
         jTextField2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setText("Đăng kí");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbtDangKi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jbtDangKi.setText("Đăng kí");
+        jbtDangKi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbtDangKiActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setText("Hủy");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jbtHuy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jbtHuy.setText("Hủy");
+        jbtHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jbtHuyActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton3.setText("Đăng nhập");
+        jbtDangNhap.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jbtDangNhap.setText("Đăng nhập");
+        jbtDangNhap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtDangNhapActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,11 +81,11 @@ public class LoginView extends javax.swing.JFrame {
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jbtDangKi, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton3)
+                                    .addComponent(jbtDangNhap)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jbtHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(20, 20, 20))
         );
@@ -99,27 +107,52 @@ public class LoginView extends javax.swing.JFrame {
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbtDangKi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(72, 72, 72))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbtDangKiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDangKiActionPerformed
         RegisterView registerView = new RegisterView();
         
         registerView.setVisible(true);
         registerView.pack();
         registerView.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbtDangKiActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jbtHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtHuyActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jbtHuyActionPerformed
+
+    private void jbtDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDangNhapActionPerformed
+        String username = jTextField2.getText();
+        String password = jTextField1.getText();
+        
+        LoginController controller = new LoginController();
+        boolean check = controller.login(username, password);
+                
+        if(!username.equals("") && !password.equals("")){
+            if(check == true){
+                
+                MainView mainView = new MainView();
+                
+                mainView.setVisible(true);
+                mainView.pack();
+                mainView.setLocationRelativeTo(null);
+                this.dispose();
+                
+            } else{
+                JOptionPane.showMessageDialog(this, "Nhap sai !", "Co loi", JOptionPane.ERROR_MESSAGE);
+            }
+        } else{
+            JOptionPane.showMessageDialog(this, "Nhap sai !", "Co loi", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbtDangNhapActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,13 +185,13 @@ public class LoginView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton jbtDangKi;
+    private javax.swing.JButton jbtDangNhap;
+    private javax.swing.JButton jbtHuy;
     // End of variables declaration//GEN-END:variables
 }
