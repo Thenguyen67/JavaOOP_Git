@@ -12,6 +12,8 @@ public class RegisterView extends javax.swing.JFrame {
         initComponents();
         
         rc = new RegisterController();
+        
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

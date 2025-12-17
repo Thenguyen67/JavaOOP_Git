@@ -35,7 +35,5 @@ public class RegisterController {
             ex.printStackTrace(); 
             return false;
         }
-
     }
-    
 }
