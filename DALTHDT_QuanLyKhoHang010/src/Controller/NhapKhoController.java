@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 public class NhapKhoController {
     
@@ -37,16 +39,16 @@ public class NhapKhoController {
         }
     }
     
-    public boolean KiemTraTonTai(String ID_NCC, String ID_SP, String ID_Kho) {
+    public boolean TraVeTrueFalse(String ID_NCC, String ID_SP, String ID_Kho) {
     
-        if (!checkTonTai("nhacungcap", "ID_NCC", ID_NCC)) return false;
-        if (!checkTonTai("sanpham", "ID_SP", ID_SP)) return false;
-        if (!checkTonTai("khoquanly", "ID_Kho", ID_Kho)) return false;
+        if (!KiemTra("nhacungcap", "ID_NCC", ID_NCC)) return false;
+        if (!KiemTra("sanpham", "ID_SP", ID_SP)) return false;
+        if (!KiemTra("khoquanly", "ID_Kho", ID_Kho)) return false;
 
     return true;
     }
 
-    private boolean checkTonTai(String tenBang, String tenCot, String giaTri) {
+    private boolean KiemTra(String tenBang, String tenCot, String giaTri) {
         String sql = "SELECT 1 FROM " + tenBang + " WHERE " + tenCot + " = ?";
     
         try (Connection cnt = JDBCUtil.getConnection();
@@ -64,7 +66,5 @@ public class NhapKhoController {
         }
     }
     
-    public void view(){
-        
-    }
+    
 }

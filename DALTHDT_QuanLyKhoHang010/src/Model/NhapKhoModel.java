@@ -8,9 +8,27 @@ public class NhapKhoModel {
     private String MauSac;
     private String Size;
     private int SoLuong;
+    private String Ke;
+    private String Tang;
 
     public String getID_SP() {
         return ID_SP;
+    }
+
+    public String getKe() {
+        return Ke;
+    }
+
+    public String getTang() {
+        return Tang;
+    }
+
+    public void setKe(String Ke) {
+        this.Ke = Ke;
+    }
+
+    public void setTang(String Tang) {
+        this.Tang = Tang;
     }
 
     public String getID_NCC() {

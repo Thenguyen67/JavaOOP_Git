@@ -582,7 +582,7 @@ public class MainView extends javax.swing.JFrame {
                 && !IDSanPham_NhapKho.equals("")
                 && !IDKho_NhapKho.equals(""))
         {
-            if(nhapKhoController.KiemTraTonTai(IDNCC_NhapKho, IDSanPham_NhapKho, IDKho_NhapKho)){
+            if(nhapKhoController.TraVeTrueFalse(IDNCC_NhapKho, IDSanPham_NhapKho, IDKho_NhapKho)){
                 
                 NhapKhoView nhapKhoView = new NhapKhoView();
 
