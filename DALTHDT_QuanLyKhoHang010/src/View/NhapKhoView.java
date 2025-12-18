@@ -29,6 +29,7 @@ public NhapKhoView(String idNCC, String idKho) {
     this.currentIDKho = idKho;
 
     loadDataToTable();
+    this.setLocationRelativeTo(null);
 }
 
 public void loadDataToTable() {
@@ -257,7 +258,16 @@ public void loadDataToTable() {
     }//GEN-LAST:event_jbtThemActionPerformed
 
     private void jbtThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtThemMoiActionPerformed
-        // TODO add your handling code here:
+        ThemMoiView themMoi = new ThemMoiView(currentIDNCC, currentIDKho);
+        themMoi.setVisible(true);
+        themMoi.setLocationRelativeTo(null); 
+
+        themMoi.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e) {
+            loadDataToTable();
+        }
+    });
     }//GEN-LAST:event_jbtThemMoiActionPerformed
 
     private void jbtThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtThoatActionPerformed
