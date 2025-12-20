@@ -9,40 +9,64 @@ public class NhapKhoView extends javax.swing.JFrame {
     
     private String currentIDNCC;
     private String currentIDKho;
+    private boolean isImportMode = true;
+    
     private NhapKhoController controller = new NhapKhoController();
     
     private void jtbNhapKhoMouseClicked(java.awt.event.MouseEvent evt) {
         int row = jtbNhapKho.getSelectedRow();
-        if (row != -1) {
-            txtMauSac.setText(jtbNhapKho.getValueAt(row, 0).toString());
-            txtSize.setText(jtbNhapKho.getValueAt(row, 1).toString());
-            txtSoLuong.setText(jtbNhapKho.getValueAt(row, 2).toString()); 
-            txtTang.setText(jtbNhapKho.getValueAt(row, 3).toString());
-            txtKe.setText(jtbNhapKho.getValueAt(row, 4).toString());
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm!");
+            return;
+        }
+
+        try {
+            int slThayDoi = Integer.parseInt(txtSoLuong.getText());
+            String mauSac = jtbNhapKho.getValueAt(row, 1).toString();
+            String size = jtbNhapKho.getValueAt(row, 2).toString();
+            boolean success = false;
+
+            if (isImportMode) {
+            success = controller.addSoLuong(slThayDoi, currentIDNCC, currentIDKho, mauSac, size);
+            } else {
+                success = controller.subtractSoLuong(slThayDoi, currentIDNCC, currentIDKho, mauSac, size);
+            }
+
+            if (success) {
+                String msg = isImportMode ? "Đã nhập thêm " : "Đã xuất kho ";
+                JOptionPane.showMessageDialog(this, msg + slThayDoi + " sản phẩm!");
+                loadDataToTable();
+            } else {
+                String errorMsg = isImportMode ? "Lỗi cập nhật!" : "Lỗi! Số lượng xuất vượt quá tồn kho.";
+                JOptionPane.showMessageDialog(this, errorMsg, "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên!");
+        }
     }
-}
     
-public NhapKhoView(String idNCC, String idKho) {
-    initComponents();
+    public NhapKhoView(String idNCC, String idKho, boolean isImportMode) {
+        initComponents();
 
-    this.currentIDNCC = idNCC;
-    this.currentIDKho = idKho;
+        this.currentIDNCC = idNCC;
+        this.currentIDKho = idKho;
+        this.isImportMode = isImportMode;
 
-    loadDataToTable();
-    this.setLocationRelativeTo(null);
-}
-
-public void loadDataToTable() {
-    DefaultTableModel model = (DefaultTableModel) jtbNhapKho.getModel();
-    model.setRowCount(0);
-
-    java.util.List<NhapKhoModel> list = controller.getSanPhamTheoID(currentIDNCC, currentIDKho);
-    for (NhapKhoModel sp : list) {
-        model.addRow(new Object[]{
-            sp.getTen_SP(), sp.getMauSac(), sp.getSize(), sp.getSoLuong(), sp.getTang(), sp.getKe()
-        });
+        loadDataToTable();
+        this.setLocationRelativeTo(null);
     }
-}
+
+    public void loadDataToTable() {
+        DefaultTableModel model = (DefaultTableModel) jtbNhapKho.getModel();
+        model.setRowCount(0);
+
+        java.util.List<NhapKhoModel> list = controller.getSanPhamTheoID(currentIDNCC, currentIDKho);
+        for (NhapKhoModel sp : list) {
+            model.addRow(new Object[]{
+                sp.getTen_SP(), sp.getMauSac(), sp.getSize(), sp.getSoLuong(), sp.getTang(), sp.getKe()
+            });
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -85,7 +109,7 @@ public void loadDataToTable() {
         ));
         jScrollPane1.setViewportView(jtbNhapKho);
 
-        jbtThem.setText("Thêm");
+        jbtThem.setText("Nhập/Xuất");
         jbtThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtThemActionPerformed(evt);
@@ -161,7 +185,7 @@ public void loadDataToTable() {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSize, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 37, Short.MAX_VALUE)
+                .addGap(0, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlbSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbTang, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,27 +257,33 @@ public void loadDataToTable() {
     private void jbtThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtThemActionPerformed
         int row = jtbNhapKho.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần nhập thêm!");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm!");
             return;
         }
 
         try {
-            int slNhapThem = Integer.parseInt(txtSoLuong.getText()); 
-
+            int slThayDoi = Integer.parseInt(txtSoLuong.getText());
             String mauSac = jtbNhapKho.getValueAt(row, 1).toString();
             String size = jtbNhapKho.getValueAt(row, 2).toString();
+            boolean success = false;
 
-            boolean isUpdated = controller.addSoLuong(slNhapThem, currentIDNCC, currentIDKho, mauSac, size);
-
-            if (isUpdated) {
-                JOptionPane.showMessageDialog(this, "Đã nhập thêm " + slNhapThem + " sản phẩm vào kho!");
-                loadDataToTable(); 
+            if (isImportMode) {
+                success = controller.addSoLuong(slThayDoi, currentIDNCC, currentIDKho, mauSac, size);
             } else {
-                JOptionPane.showMessageDialog(this, "Lỗi cập nhật!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                // Gọi hàm subtractSanPham (hoặc subtractSoLuong) bạn đã thêm
+                success = controller.subtractSoLuong(slThayDoi, currentIDNCC, currentIDKho, mauSac, size);
             }
-        
+
+            if (success) {
+                String msg = isImportMode ? "Đã nhập thêm " : "Đã xuất kho ";
+                JOptionPane.showMessageDialog(this, msg + slThayDoi + " sản phẩm!");
+                loadDataToTable();
+            } else {
+                String errorMsg = isImportMode ? "Lỗi cập nhật!" : "Lỗi! Số lượng xuất vượt quá tồn kho.";
+                JOptionPane.showMessageDialog(this, errorMsg, "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Số lượng phải là con số!");
+            JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên!");
         }
     }//GEN-LAST:event_jbtThemActionPerformed
 
@@ -305,7 +335,7 @@ public void loadDataToTable() {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NhapKhoView("KH001", "A01").setVisible(true);
+                new NhapKhoView("KH001", "A01", true).setVisible(true);
             }
         });
     }

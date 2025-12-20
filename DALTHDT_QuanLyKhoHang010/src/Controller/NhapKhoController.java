@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.util.List;
 
 public class NhapKhoController {
     
@@ -115,23 +114,50 @@ public class NhapKhoController {
 //    }
     
     public boolean addSoLuong(int soLuongThem, String idNCC, String idKho, String mauSac, String size) {
-    String sql = "UPDATE sanpham SET SoLuong = SoLuong + ? "
-               + "WHERE ID_NCC = ? AND ID_Kho = ? AND MauSac = ? AND Size = ?";
-    
-    try (Connection cnt = JDBCUtil.getConnection();
-         PreparedStatement ps = cnt.prepareStatement(sql)) {
         
-        ps.setInt(1, soLuongThem); 
-        ps.setString(2, idNCC);
-        ps.setString(3, idKho);
-        ps.setString(4, mauSac);
-        ps.setString(5, size);
-        
-        int rowsAffected = ps.executeUpdate();
-        return rowsAffected > 0;
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-        return false;
+        String sql = "UPDATE sanpham SET SoLuong = SoLuong + ? "
+                   + "WHERE ID_NCC = ? AND ID_Kho = ? AND MauSac = ? AND Size = ?";
+
+        try (Connection cnt = JDBCUtil.getConnection();
+             PreparedStatement ps = cnt.prepareStatement(sql)) {
+
+            ps.setInt(1, soLuongThem); 
+            ps.setString(2, idNCC);
+            ps.setString(3, idKho);
+            ps.setString(4, mauSac);
+            ps.setString(5, size);
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
-}
+    
+    public boolean subtractSoLuong(int soLuongXuat, String idNCC, String idKho, String mauSac, String size) {
+        
+        String checkSql = "SELECT SoLuong FROM sanpham WHERE ID_NCC = ? AND ID_Kho = ? AND MauSac = ? AND Size = ?";
+        String updateSql = "UPDATE sanpham SET SoLuong = SoLuong - ? "
+                         + "WHERE ID_NCC = ? AND ID_Kho = ? AND MauSac = ? AND Size = ? AND SoLuong >= ?";
+
+        try (Connection cnt = JDBCUtil.getConnection()) {
+            if (cnt == null) return false;
+
+            try (PreparedStatement ps = cnt.prepareStatement(updateSql)) {
+                ps.setInt(1, soLuongXuat);
+                ps.setString(2, idNCC);
+                ps.setString(3, idKho);
+                ps.setString(4, mauSac);
+                ps.setString(5, size);
+                ps.setInt(6, soLuongXuat); 
+
+                int rowsAffected = ps.executeUpdate();
+                return rowsAffected > 0;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 }

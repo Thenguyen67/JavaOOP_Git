@@ -246,7 +246,7 @@ public class ThemMoiView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtHuyActionPerformed
 
     private void jbtThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtThoatActionPerformed
-        NhapKhoView nkv = new NhapKhoView(idNCC, idKho);
+        NhapKhoView nkv = new NhapKhoView(idNCC, idKho, true);
         nkv.setVisible(true);
         nkv.setLocationRelativeTo(null);
     }//GEN-LAST:event_jbtThoatActionPerformed
