@@ -15,6 +15,7 @@ public class LoginController {
     }
     
     public boolean login(String ID, String password){
+        
         Connection cnt = JDBCUtil.getConnection();
         
         String sql = "SELECT * FROM taikhoannhanvien WHERE ID = ? AND password = ?";

@@ -42,7 +42,7 @@ public class NhapKhoController {
         if (!KiemTra("nhacungcap", "ID_NCC", ID_NCC)) return false;
         if (!KiemTra("khoquanly", "ID_Kho", ID_Kho)) return false;
 
-    return true;
+        return true;
     }
 
     private boolean KiemTra(String tenBang, String tenCot, String giaTri) {
@@ -93,33 +93,13 @@ public class NhapKhoController {
         return list;
     }
     
-//    public boolean updateSoLuong(int soLuong, String idNCC, String idKho, String mauSac, String size) {
-//        String sql = "UPDATE sanpham SET SoLuong = ? WHERE ID_NCC = ? AND ID_Kho = ? AND MauSac = ? AND Size = ?";
-//
-//        try (Connection cnt = JDBCUtil.getConnection();
-//             PreparedStatement ps = cnt.prepareStatement(sql)) {
-//
-//            ps.setInt(1, soLuong);
-//            ps.setString(2, idNCC);
-//            ps.setString(3, idKho);
-//            ps.setString(4, mauSac);
-//            ps.setString(5, size);
-//
-//            int rowsAffected = ps.executeUpdate();
-//            return rowsAffected > 0;
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//            return false;
-//        }
-//    }
-    
     public boolean addSoLuong(int soLuongThem, String idNCC, String idKho, String mauSac, String size) {
         
         String sql = "UPDATE sanpham SET SoLuong = SoLuong + ? "
                    + "WHERE ID_NCC = ? AND ID_Kho = ? AND MauSac = ? AND Size = ?";
 
         try (Connection cnt = JDBCUtil.getConnection();
-             PreparedStatement ps = cnt.prepareStatement(sql)) {
+        PreparedStatement ps = cnt.prepareStatement(sql)) {
 
             ps.setInt(1, soLuongThem); 
             ps.setString(2, idNCC);
@@ -162,6 +142,7 @@ public class NhapKhoController {
     }
     
     public java.util.List<Model.LichSuModel> getLichSu(String kieu) {
+        
         java.util.List<Model.LichSuModel> list = new java.util.ArrayList<>();
         String sql = "SELECT * FROM lichsunhapkho WHERE KieuHoaDon = ? ORDER BY Date DESC";
 
@@ -175,9 +156,8 @@ public class NhapKhoController {
                 while (rs.next()) {
                     Model.LichSuModel ls = new Model.LichSuModel();
 
-                    // Các trường từ bảng lichsunhapkho
                     ls.setKieuHoaDon(rs.getString("KieuHoaDon"));
-                    ls.setIdKho(rs.getString("ID_Kho")); // Đã có method sau khi sửa Model
+                    ls.setIdKho(rs.getString("ID_Kho"));
                     ls.setID_NCC(rs.getString("ID_NCC"));
                     ls.setID_SP(rs.getString("ID_SP"));
                     ls.setTen_SP(rs.getString("Ten_SP"));
@@ -199,7 +179,6 @@ public class NhapKhoController {
     }
     
     public boolean saveLichSu(String idNCC, String idKho, String mauSac, String size, int soLuong, String kieu) {
-        // Truy vấn thông tin SP hiện tại để lấy ID_SP, Ten_SP, Ke, Tang...
         String selectSql = "SELECT * FROM sanpham WHERE ID_NCC = ? AND ID_Kho = ? AND MauSac = ? AND Size = ?";
         String insertSql = "INSERT INTO lichsunhapkho (KieuHoaDon, ID_Kho, ID_NCC, ID_SP, Ten_SP, Kieu_SP, MauSac, Size, SoLuong, Ke, Tang, Date) "
                          + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
@@ -234,5 +213,89 @@ public class NhapKhoController {
             ex.printStackTrace();
         }
         return false;
+    }
+    
+    public java.util.List<NhapKhoModel> searchSanPhamByIDNCC(String idNCC) {
+        
+        java.util.List<NhapKhoModel> list = new java.util.ArrayList<>();
+        String sql = "SELECT * FROM sanpham WHERE ID_NCC LIKE ?";
+        try (Connection cnt = DBConnection.JDBCUtil.getConnection();
+             PreparedStatement ps = cnt.prepareStatement(sql)) {
+            ps.setString(1, "%" + idNCC + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                NhapKhoModel sp = new NhapKhoModel();
+                sp.setIDKho(rs.getString("ID_Kho"));
+                sp.setID_SP(rs.getString("ID_SP"));
+                sp.setTen_SP(rs.getString("Ten_SP"));
+                sp.setKieu_SP(rs.getString("Kieu_SP"));
+                sp.setMauSac(rs.getString("MauSac"));
+                sp.setSize(rs.getString("Size"));
+                sp.setSoLuong(rs.getInt("SoLuong"));
+                sp.setKe(rs.getString("Ke"));
+                sp.setTang(rs.getString("Tang"));
+                list.add(sp);
+            }
+        } catch (SQLException ex) { ex.printStackTrace(); }
+        return list;
+    }
+
+    public java.util.List<NhapKhoModel> getAllSanPham() {
+        
+        java.util.List<NhapKhoModel> list = new java.util.ArrayList<>();
+        String sql = "SELECT * FROM sanpham"; 
+
+        try (Connection cnt = DBConnection.JDBCUtil.getConnection();
+             PreparedStatement ps = cnt.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                NhapKhoModel sp = new NhapKhoModel();
+                sp.setID_NCC(rs.getString("ID_NCC"));
+                sp.setID_SP(rs.getString("ID_SP"));
+                sp.setTen_SP(rs.getString("Ten_SP"));
+                sp.setKieu_SP(rs.getString("Kieu_SP"));
+                sp.setMauSac(rs.getString("MauSac"));
+                sp.setSize(rs.getString("Size"));
+                sp.setSoLuong(rs.getInt("SoLuong"));
+                sp.setKe(rs.getString("Ke"));
+                sp.setTang(rs.getString("Tang"));
+                list.add(sp);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+    
+    public java.util.List<NhapKhoModel> getSanPhamByIDKho(String idKho) {
+        
+        java.util.List<NhapKhoModel> list = new java.util.ArrayList<>();
+        
+        String sql = "SELECT * FROM sanpham WHERE ID_Kho LIKE ?";
+
+        try (Connection cnt = DBConnection.JDBCUtil.getConnection();
+             PreparedStatement ps = cnt.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + idKho + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                NhapKhoModel sp = new NhapKhoModel();
+                sp.setID_NCC(rs.getString("ID_NCC"));
+                sp.setID_SP(rs.getString("ID_SP"));
+                sp.setTen_SP(rs.getString("Ten_SP"));
+                sp.setKieu_SP(rs.getString("Kieu_SP"));
+                sp.setMauSac(rs.getString("MauSac"));
+                sp.setSize(rs.getString("Size"));
+                sp.setSoLuong(rs.getInt("SoLuong"));
+                sp.setKe(rs.getString("Ke"));
+                sp.setTang(rs.getString("Tang"));
+                list.add(sp);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
     }
 }

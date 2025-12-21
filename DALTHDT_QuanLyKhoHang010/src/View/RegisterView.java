@@ -231,7 +231,6 @@ public class RegisterView extends javax.swing.JFrame {
             
             if (check == true) {
             JOptionPane.showMessageDialog(this, "Đăng ký tài khoản thành công!");
-            // Có thể reset text field hoặc chuyển form tại đây
             } else {
             JOptionPane.showMessageDialog(this, "Đăng ký thất bại! Kiểm tra lại kết nối hoặc trùng ID.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }

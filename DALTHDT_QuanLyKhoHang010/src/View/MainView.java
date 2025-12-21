@@ -18,35 +18,66 @@ public class MainView extends javax.swing.JFrame {
         
         this.setLocationRelativeTo(null);
         
-        loadReportTables();
+        loadReportTables(); 
+        loadTableNCC();    
+        loadTableKho();     
     }
     
     public void loadReportTables() {
-    javax.swing.table.DefaultTableModel modelNhap = (javax.swing.table.DefaultTableModel) jTable1.getModel();
-    javax.swing.table.DefaultTableModel modelXuat = (javax.swing.table.DefaultTableModel) jTable2.getModel();
+        javax.swing.table.DefaultTableModel modelNhap = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        javax.swing.table.DefaultTableModel modelXuat = (javax.swing.table.DefaultTableModel) jTable2.getModel();
     
-    modelNhap.setRowCount(0);
-    modelXuat.setRowCount(0);
+        modelNhap.setRowCount(0);
+        modelXuat.setRowCount(0);
 
-    java.util.List<Model.LichSuModel> listNhap = nhapKhoController.getLichSu("N");
-    for (Model.LichSuModel ls : listNhap) {
-        modelNhap.addRow(new Object[]{
-            ls.getIdKho(), ls.getID_NCC(), ls.getID_SP(), ls.getTen_SP(),
-            ls.getKieu_SP(), ls.getMauSac(), ls.getSize(), ls.getSoLuong(),
-            ls.getKe(), ls.getTang(), ls.getDate()
-        });
+        java.util.List<Model.LichSuModel> listNhap = nhapKhoController.getLichSu("N");
+        for (Model.LichSuModel ls : listNhap) {
+            modelNhap.addRow(new Object[]{
+                ls.getIdKho(), ls.getID_NCC(), ls.getID_SP(), ls.getTen_SP(),
+                ls.getKieu_SP(), ls.getMauSac(), ls.getSize(), ls.getSoLuong(),
+                ls.getKe(), ls.getTang(), ls.getDate()
+            });
+        }
+
+        java.util.List<Model.LichSuModel> listXuat = nhapKhoController.getLichSu("X");
+        for (Model.LichSuModel ls : listXuat) {
+            modelXuat.addRow(new Object[]{
+                ls.getIdKho(), ls.getID_NCC(), ls.getID_SP(), ls.getTen_SP(),
+                ls.getKieu_SP(), ls.getMauSac(), ls.getSize(), ls.getSoLuong(),
+                ls.getKe(), ls.getTang(), ls.getDate()
+            });
+        }
+    }
+    
+    public void loadTableNCC() {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable4.getModel();
+        model.setRowCount(0);
+        java.util.List<Model.NhaCungCapModel> list = NCCController.getAllNCC(); 
+        for (Model.NhaCungCapModel ncc : list) {
+            model.addRow(new Object[]{ncc.getID_NCC(), ncc.getTen_NCC(), ncc.getEmail_NCC(), ncc.getDiaChi_NCC()});
+        }
     }
 
-    // 2. Nạp dữ liệu cho bảng Xuất kho (KieuHoaDon = "X")
-    java.util.List<Model.LichSuModel> listXuat = nhapKhoController.getLichSu("X");
-    for (Model.LichSuModel ls : listXuat) {
-        modelXuat.addRow(new Object[]{
-            ls.getIdKho(), ls.getID_NCC(), ls.getID_SP(), ls.getTen_SP(),
-            ls.getKieu_SP(), ls.getMauSac(), ls.getSize(), ls.getSoLuong(),
-            ls.getKe(), ls.getTang(), ls.getDate()
-        });
+    public void loadTableKho() {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable5.getModel();
+        model.setRowCount(0); 
+
+        java.util.List<Model.NhapKhoModel> list = nhapKhoController.getAllSanPham(); 
+
+        for (Model.NhapKhoModel sp : list) {
+            model.addRow(new Object[]{
+                sp.getID_NCC(),     
+                sp.getID_SP(),     
+                sp.getTen_SP(),      
+                sp.getKieu_SP(),     
+                sp.getMauSac(),     
+                sp.getSize(),       
+                sp.getSoLuong(),     
+                sp.getKe(),          
+                sp.getTang()        
+            });
+        }
     }
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,9 +130,21 @@ public class MainView extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane4 = new javax.swing.JTabbedPane();
-        jPanel12 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        txtTraCuuSanPham = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jbtTraCuuSP = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        txtTraCuuKho = new javax.swing.JTextField();
+        jbtTraCuuKho = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable5 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -259,7 +302,7 @@ public class MainView extends javax.swing.JFrame {
                                         .addComponent(txtIDNCC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtTenNCC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addComponent(txtGmailNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(325, Short.MAX_VALUE))
+                .addContainerGap(327, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,7 +331,7 @@ public class MainView extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtDiaChiNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(226, Short.MAX_VALUE))
+                .addContainerGap(246, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Thêm NCC", jPanel4);
@@ -407,7 +450,7 @@ public class MainView extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -439,7 +482,7 @@ public class MainView extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -470,41 +513,143 @@ public class MainView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Báo cáo", jPanel2);
 
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
-        );
-
-        jTabbedPane4.addTab("Sản phẩm", jPanel12);
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Tên", "Email", "Địa chỉ"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable4);
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane4.addTab("NCC", jPanel14);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("ID NCC");
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID Kho", "ID SP", "Tên SP", "Kiểu SP", "Màu sắc", "Size", "Số lượng", "Kệ", "Tầng"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+
+        jbtTraCuuSP.setText("Tra cứu");
+        jbtTraCuuSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtTraCuuSPActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtTraCuuSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(jbtTraCuuSP)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtTraCuuSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtTraCuuSP))
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane4.addTab("Sản phẩm", jPanel12);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setText("ID Kho");
+
+        jbtTraCuuKho.setText("Tra cứu");
+        jbtTraCuuKho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtTraCuuKhoActionPerformed(evt);
+            }
+        });
+
+        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID NCC", "ID SP", "Tên SP", "Kiểu SP", "Màu sắc", "Size", "Số lượng", "Kệ", "Tầng"
+            }
+        ));
+        jScrollPane5.setViewportView(jTable5);
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(txtTraCuuKho, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jbtTraCuuKho)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane5)
+                .addContainerGap())
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtTraCuuKho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtTraCuuKho))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane4.addTab("Kho hàng", jPanel15);
@@ -520,10 +665,7 @@ public class MainView extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane4)
-                .addContainerGap())
+            .addComponent(jTabbedPane4, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         jTabbedPane1.addTab("Tra cứu", jPanel3);
@@ -574,7 +716,7 @@ public class MainView extends javax.swing.JFrame {
                 nhapKhoView.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosed(java.awt.event.WindowEvent e) {
-                        loadReportTables(); // Cập nhật lại báo cáo ngay lập tức
+                        loadReportTables(); 
                     }
                 });
             } else{
@@ -639,7 +781,7 @@ public class MainView extends javax.swing.JFrame {
             xuatKhoView.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosed(java.awt.event.WindowEvent e) {
-                    loadReportTables(); // Cập nhật lại báo cáo ngay lập tức
+                    loadReportTables(); 
                 }
             });
         } else {
@@ -651,6 +793,35 @@ public class MainView extends javax.swing.JFrame {
         txtIDKho_XuatKho.setText("");
         txtIDNCC_XuatKho.setText("");
     }//GEN-LAST:event_jbtHuy_XuatKhoActionPerformed
+
+    private void jbtTraCuuSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtTraCuuSPActionPerformed
+        String idSearch = txtTraCuuSanPham.getText().trim();
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable3.getModel();
+        model.setRowCount(0);
+    
+        java.util.List<Model.NhapKhoModel> list = nhapKhoController.searchSanPhamByIDNCC(idSearch);
+        for (Model.NhapKhoModel sp : list) {
+            model.addRow(new Object[]{
+                sp.getIDKho(), sp.getID_SP(), sp.getTen_SP(), sp.getKieu_SP(),
+                sp.getMauSac(), sp.getSize(), sp.getSoLuong(), sp.getKe(), sp.getTang()
+            });
+        }
+    }//GEN-LAST:event_jbtTraCuuSPActionPerformed
+
+    private void jbtTraCuuKhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtTraCuuKhoActionPerformed
+        String idKhoSearch = txtTraCuuKho.getText().trim();
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable5.getModel();
+        model.setRowCount(0);
+
+        java.util.List<Model.NhapKhoModel> list = nhapKhoController.getSanPhamByIDKho(idKhoSearch);
+
+        for (Model.NhapKhoModel sp : list) {
+            model.addRow(new Object[]{
+                sp.getID_NCC(), sp.getID_SP(), sp.getTen_SP(), sp.getKieu_SP(),
+                sp.getMauSac(), sp.getSize(), sp.getSoLuong(), sp.getKe(), sp.getTang()
+            });
+        }
+    }//GEN-LAST:event_jbtTraCuuKhoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -696,7 +867,9 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
@@ -713,17 +886,25 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTable4;
+    private javax.swing.JTable jTable5;
     private javax.swing.JButton jbtHuyNCC;
     private javax.swing.JButton jbtHuyNhapKho;
     private javax.swing.JButton jbtHuy_XuatKho;
     private javax.swing.JButton jbtThemNCC;
     private javax.swing.JButton jbtThemNhapKho;
+    private javax.swing.JButton jbtTraCuuKho;
+    private javax.swing.JButton jbtTraCuuSP;
     private javax.swing.JButton jbtXuat_XuatKho;
     private javax.swing.JTextField txtDiaChiNCC;
     private javax.swing.JTextField txtGmailNCC;
@@ -734,5 +915,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JTextField txtIDNCC_XuatKho;
     private javax.swing.JTextField txtSDTNCC;
     private javax.swing.JTextField txtTenNCC;
+    private javax.swing.JTextField txtTraCuuKho;
+    private javax.swing.JTextField txtTraCuuSanPham;
     // End of variables declaration//GEN-END:variables
 }

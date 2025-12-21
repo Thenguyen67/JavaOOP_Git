@@ -10,6 +10,15 @@ public class NhapKhoModel {
     private int SoLuong;
     private String Ke;
     private String Tang;
+    private String IDKho;
+
+    public String getIDKho() {
+        return IDKho;
+    }
+
+    public void setIDKho(String IDKho) {
+        this.IDKho = IDKho;
+    }
 
     public String getID_SP() {
         return ID_SP;

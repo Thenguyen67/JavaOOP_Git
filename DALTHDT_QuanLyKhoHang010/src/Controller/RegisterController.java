@@ -15,9 +15,7 @@ public class RegisterController {
         try (Connection cnt = JDBCUtil.getConnection();
              PreparedStatement ps = cnt != null ? cnt.prepareStatement(sql) : null) {
 
-            if (cnt == null || ps == null) {
-                return false; 
-            }
+            if (cnt == null || ps == null) return false; 
         
             ps.setString(1, rm.getID());
             ps.setString(2, rm.getPassword());

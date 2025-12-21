@@ -270,7 +270,6 @@ public class NhapKhoView extends javax.swing.JFrame {
             if (isImportMode) {
                 success = controller.addSoLuong(slThayDoi, currentIDNCC, currentIDKho, mauSac, size);
             } else {
-                // Gọi hàm subtractSanPham (hoặc subtractSoLuong) bạn đã thêm
                 success = controller.subtractSoLuong(slThayDoi, currentIDNCC, currentIDKho, mauSac, size);
             }
 

@@ -5,6 +5,9 @@ import Model.NhaCungCapModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.ResultSet;
 
 
 public class NhaCungCapController {
@@ -32,5 +35,33 @@ public class NhaCungCapController {
             ex.printStackTrace(); 
             return false;
         }
+    }
+    
+    public List<NhaCungCapModel> getAllNCC() {
+        List<NhaCungCapModel> list = new ArrayList<>();
+        
+        String sql = "SELECT * FROM nhacungcap";
+
+        try (Connection cnt = JDBCUtil.getConnection();
+             PreparedStatement ps = cnt != null ? cnt.prepareStatement(sql) : null;
+             ResultSet rs = ps != null ? ps.executeQuery() : null) {
+
+            if (rs != null) {
+                while (rs.next()) {
+                    NhaCungCapModel ncc = new NhaCungCapModel();
+
+                    ncc.setID_NCC(rs.getString("ID_NCC"));
+                    ncc.setTen_NCC(rs.getString("Ten_NCC"));
+                    ncc.setSDT_NCC(rs.getString("SDT_NCC"));
+                    ncc.setEmail_NCC(rs.getString("Email_NCC"));
+                    ncc.setDiaChi_NCC(rs.getString("DiaChi_NCC"));
+                    
+                    list.add(ncc);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
     }
 }
