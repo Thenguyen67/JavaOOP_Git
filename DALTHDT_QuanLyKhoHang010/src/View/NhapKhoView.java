@@ -275,6 +275,9 @@ public class NhapKhoView extends javax.swing.JFrame {
             }
 
             if (success) {
+                String kieu = isImportMode ? "N" : "X";
+                controller.saveLichSu(currentIDNCC, currentIDKho, mauSac, size, slThayDoi, kieu);
+
                 String msg = isImportMode ? "Đã nhập thêm " : "Đã xuất kho ";
                 JOptionPane.showMessageDialog(this, msg + slThayDoi + " sản phẩm!");
                 loadDataToTable();
@@ -282,6 +285,7 @@ public class NhapKhoView extends javax.swing.JFrame {
                 String errorMsg = isImportMode ? "Lỗi cập nhật!" : "Lỗi! Số lượng xuất vượt quá tồn kho.";
                 JOptionPane.showMessageDialog(this, errorMsg, "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
+            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên!");
         }

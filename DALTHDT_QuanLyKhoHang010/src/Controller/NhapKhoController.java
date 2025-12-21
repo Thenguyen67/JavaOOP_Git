@@ -160,4 +160,79 @@ public class NhapKhoController {
             return false;
         }
     }
+    
+    public java.util.List<Model.LichSuModel> getLichSu(String kieu) {
+        java.util.List<Model.LichSuModel> list = new java.util.ArrayList<>();
+        String sql = "SELECT * FROM lichsunhapkho WHERE KieuHoaDon = ? ORDER BY Date DESC";
+
+        try (Connection cnt = DBConnection.JDBCUtil.getConnection();
+             PreparedStatement ps = cnt != null ? cnt.prepareStatement(sql) : null) {
+
+            if (cnt == null || ps == null) return list;
+
+            ps.setString(1, kieu);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Model.LichSuModel ls = new Model.LichSuModel();
+
+                    // Các trường từ bảng lichsunhapkho
+                    ls.setKieuHoaDon(rs.getString("KieuHoaDon"));
+                    ls.setIdKho(rs.getString("ID_Kho")); // Đã có method sau khi sửa Model
+                    ls.setID_NCC(rs.getString("ID_NCC"));
+                    ls.setID_SP(rs.getString("ID_SP"));
+                    ls.setTen_SP(rs.getString("Ten_SP"));
+                    ls.setKieu_SP(rs.getString("Kieu_SP"));
+                    ls.setMauSac(rs.getString("MauSac"));
+                    ls.setSize(rs.getString("Size"));
+                    ls.setSoLuong(rs.getInt("SoLuong"));
+                    ls.setKe(rs.getString("Ke"));
+                    ls.setTang(rs.getString("Tang"));
+                    ls.setDate(rs.getTimestamp("Date"));
+
+                    list.add(ls);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+    
+    public boolean saveLichSu(String idNCC, String idKho, String mauSac, String size, int soLuong, String kieu) {
+        // Truy vấn thông tin SP hiện tại để lấy ID_SP, Ten_SP, Ke, Tang...
+        String selectSql = "SELECT * FROM sanpham WHERE ID_NCC = ? AND ID_Kho = ? AND MauSac = ? AND Size = ?";
+        String insertSql = "INSERT INTO lichsunhapkho (KieuHoaDon, ID_Kho, ID_NCC, ID_SP, Ten_SP, Kieu_SP, MauSac, Size, SoLuong, Ke, Tang, Date) "
+                         + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
+
+        try (Connection cnt = DBConnection.JDBCUtil.getConnection();
+             PreparedStatement psSelect = cnt.prepareStatement(selectSql)) {
+
+            psSelect.setString(1, idNCC);
+            psSelect.setString(2, idKho);
+            psSelect.setString(3, mauSac);
+            psSelect.setString(4, size);
+
+            try (ResultSet rs = psSelect.executeQuery()) {
+                if (rs.next()) {
+                    try (PreparedStatement psInsert = cnt.prepareStatement(insertSql)) {
+                        psInsert.setString(1, kieu);
+                        psInsert.setString(2, idKho);
+                        psInsert.setString(3, idNCC);
+                        psInsert.setString(4, rs.getString("ID_SP"));
+                        psInsert.setString(5, rs.getString("Ten_SP"));
+                        psInsert.setString(6, rs.getString("Kieu_SP"));
+                        psInsert.setString(7, mauSac);
+                        psInsert.setString(8, size);
+                        psInsert.setInt(9, soLuong);
+                        psInsert.setString(10, rs.getString("Ke"));
+                        psInsert.setString(11, rs.getString("Tang"));
+                        return psInsert.executeUpdate() > 0;
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
 }

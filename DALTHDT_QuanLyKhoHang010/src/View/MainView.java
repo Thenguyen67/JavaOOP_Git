@@ -17,7 +17,36 @@ public class MainView extends javax.swing.JFrame {
         nhapKhoController = new NhapKhoController();
         
         this.setLocationRelativeTo(null);
+        
+        loadReportTables();
     }
+    
+    public void loadReportTables() {
+    javax.swing.table.DefaultTableModel modelNhap = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+    javax.swing.table.DefaultTableModel modelXuat = (javax.swing.table.DefaultTableModel) jTable2.getModel();
+    
+    modelNhap.setRowCount(0);
+    modelXuat.setRowCount(0);
+
+    java.util.List<Model.LichSuModel> listNhap = nhapKhoController.getLichSu("N");
+    for (Model.LichSuModel ls : listNhap) {
+        modelNhap.addRow(new Object[]{
+            ls.getIdKho(), ls.getID_NCC(), ls.getID_SP(), ls.getTen_SP(),
+            ls.getKieu_SP(), ls.getMauSac(), ls.getSize(), ls.getSoLuong(),
+            ls.getKe(), ls.getTang(), ls.getDate()
+        });
+    }
+
+    // 2. Nạp dữ liệu cho bảng Xuất kho (KieuHoaDon = "X")
+    java.util.List<Model.LichSuModel> listXuat = nhapKhoController.getLichSu("X");
+    for (Model.LichSuModel ls : listXuat) {
+        modelXuat.addRow(new Object[]{
+            ls.getIdKho(), ls.getID_NCC(), ls.getID_SP(), ls.getTen_SP(),
+            ls.getKieu_SP(), ls.getMauSac(), ls.getSize(), ls.getSoLuong(),
+            ls.getKe(), ls.getTang(), ls.getDate()
+        });
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,7 +92,11 @@ public class MainView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel7 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jPanel12 = new javax.swing.JPanel();
@@ -255,7 +288,7 @@ public class MainView extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtDiaChiNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(226, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Thêm NCC", jPanel4);
@@ -355,28 +388,66 @@ public class MainView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Quản lý", jPanel1);
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID Kho", "ID NCC", "ID SP", "Tên SP", "Kiểu SP", "Màu sắc", "Size", "Số lượng", "Kệ", "Tầng", "Date"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 725, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 379, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab("Nhập kho", jPanel7);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID_Kho", "ID_NCC", "ID_SP", "Ten_SP", "Kieu_SP", "MauSac", "Size", "SoLuong", "Ke", "Tang", "Date"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 725, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 379, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab("Xuất kho", jPanel8);
@@ -407,7 +478,7 @@ public class MainView extends javax.swing.JFrame {
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 379, Short.MAX_VALUE)
+            .addGap(0, 469, Short.MAX_VALUE)
         );
 
         jTabbedPane4.addTab("Sản phẩm", jPanel12);
@@ -420,7 +491,7 @@ public class MainView extends javax.swing.JFrame {
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 379, Short.MAX_VALUE)
+            .addGap(0, 469, Short.MAX_VALUE)
         );
 
         jTabbedPane4.addTab("NCC", jPanel14);
@@ -433,7 +504,7 @@ public class MainView extends javax.swing.JFrame {
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 379, Short.MAX_VALUE)
+            .addGap(0, 469, Short.MAX_VALUE)
         );
 
         jTabbedPane4.addTab("Kho hàng", jPanel15);
@@ -499,6 +570,13 @@ public class MainView extends javax.swing.JFrame {
                 nhapKhoView.setVisible(true);
                 nhapKhoView.pack();
                 nhapKhoView.setLocationRelativeTo(null);
+                
+                nhapKhoView.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent e) {
+                        loadReportTables(); // Cập nhật lại báo cáo ngay lập tức
+                    }
+                });
             } else{
                 JOptionPane.showMessageDialog(this, "Nhập sai hoặc thiếu thông tin", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } 
@@ -557,6 +635,13 @@ public class MainView extends javax.swing.JFrame {
             NhapKhoView xuatKhoView = new NhapKhoView(idNCC, idKho, false); 
             xuatKhoView.setVisible(true);
             xuatKhoView.setLocationRelativeTo(null);
+            
+            xuatKhoView.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    loadReportTables(); // Cập nhật lại báo cáo ngay lập tức
+                }
+            });
         } else {
             JOptionPane.showMessageDialog(this, "ID Nhà cung cấp hoặc ID Kho không tồn tại!");
         }
@@ -626,10 +711,14 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JButton jbtHuyNCC;
     private javax.swing.JButton jbtHuyNhapKho;
     private javax.swing.JButton jbtHuy_XuatKho;
